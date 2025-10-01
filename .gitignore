@@ -1,0 +1,25 @@
+# =========================
+# Node.js / Express Backend
+# =========================
+
+# Node dependencies (always reinstall with npm/yarn)
+node_modules/
+
+# Environment variables (contains secrets like DB URI, JWT keys, email creds)
+.env
+
+# Log files
+*.log
+
+# Build / temp output (if you compile or transpile)
+dist/
+build/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/editor settings
+.vscode/
+.idea/
+.vercel
