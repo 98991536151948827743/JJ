@@ -237,6 +237,8 @@ export const verifyOTP = async (req, res) => {
         email,
         isVerified: true,
         role,
+        loggedIn: true
+
       });
 
       // Set HttpOnly cookie
@@ -389,6 +391,7 @@ export const registerUser = async (req, res) => {
       email,
       isVerified: true,
       role,
+      loggedIn: true
     });
 
     // Set HttpOnly cookie

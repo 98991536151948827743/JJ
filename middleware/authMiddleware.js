@@ -38,7 +38,7 @@ const authMiddleware = async (req, res, next) => {
 
         // Optionally: generate new access token here
         const newAuthToken = jwt.sign(
-          { email: decoded.email, role: decoded.role, isVerified: decoded.isVerified },
+          { email: decoded.email, role: decoded.role, isVerified: decoded.isVerified, loggedIn: true },
           process.env.JWT_SECRET,
           { expiresIn: "15m" }
         );
