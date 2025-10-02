@@ -5,8 +5,8 @@ import {
   registerUser,
   checkLogin,
   logoutUser,
+  refreshAuthToken,
 } from "../controllers/authcontroller/auth.js";
-import refreshAuthToken  from "../controllers/authcontroller/refreshToken.js";
 
 const router = Router();
 
