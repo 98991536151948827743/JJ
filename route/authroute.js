@@ -1,5 +1,4 @@
 import { Router } from "express";
-import cookieParser from "cookie-parser";
 import {
   sendOTP,
   verifyOTP,
@@ -22,7 +21,7 @@ router.get("/check-login", checkLogin);
 
 router.post("/logout", logoutUser);
 
-router.post("/refresh-token", refreshAuthToken);
+router.get("/refresh-token", refreshAuthToken);
 
 // ---------------- HEALTH CHECK ---------------- //
 router.get("/health", (req, res) => {

@@ -10,13 +10,13 @@ const refreshAuthToken = async (req, res) => {
 
     const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
 
-    const { accessToken } = generateTokens({
+    const { authToken } = generateTokens({
       email: decoded.email,
       role: decoded.role,
       isVerified: decoded.isVerified,
     });
 
-    res.cookie("authToken", accessToken, {
+    res.cookie("authToken", authToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Strict",

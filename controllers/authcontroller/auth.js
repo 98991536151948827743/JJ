@@ -176,8 +176,7 @@ export const verifyOTP = async (req, res) => {
     }
 
     // ✅ Nullify OTP instead of deleting doc
-    otpRecord.otp = null;
-    await otpRecord.save();
+    await OTP.deleteOne({ _id: otpRecord._id });
 
     // ✅ Check both Student and Member
     let existingUser = await Student.findOne({ email });
