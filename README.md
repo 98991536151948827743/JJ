@@ -111,27 +111,57 @@ flowchart TD
 - **500 Internal Server Error**: Server issues, OTP send failure, DB errors  
 
 
-##How this post comment and like schema is working right now 
-- **Imagine user A (a Student) creates a post.**:
+# 💬 Social Content Schema & Relationships
 
-Post is saved → generates _id = P123.
+This document outlines the core data structure (schemas) and the relationships between them for managing user-generated content, comments, and likes.
 
-- **Now, user B comments on this post:**
+---
 
-Comment saved with postId = P123.
 
-This links the comment directly to the post.
 
--**User C likes this post:**
+## 1. Post Schema
 
-Like saved with targetType = "Post", targetId = P123.
+A **Post** represents the primary content created by a user.
 
-That means this Like is attached to the post itself.
+| Field | Type | Description | Example Value |
+| :--- | :--- | :--- | :--- |
+| `_id` | **String** | **Unique identifier for the Post.** | `P123` |
+| `author` | **Reference (User)** | The user who created the post. | (User Object ID) |
+| `content` | String | The main text content of the post. | `"Excited to share my first blog!"` |
+| `attachments` | Array (String/URL) | Optional links to images, videos, or files. | `["url/img1.jpg", "url/vid2.mp4"]` |
 
--**Later, user D likes a comment:**
+---
 
-Comment had _id = C456.
+## 2. Comment Schema
 
-Like saved with targetType = "Comment", targetId = C456.
+A **Comment** is content specifically attached to a Post.
 
-That means this Like is attached to a comment, not the post.
+| Field | Type | Description | Example Value |
+| :--- | :--- | :--- | :--- |
+| `_id` | **String** | **Unique identifier for the Comment.** | `C456` |
+| `postId` | **String** | **References the `_id` of the Post** this comment belongs to. | `P123` |
+| `author` | **Reference (User)** | The user who wrote the comment. | (User Object ID) |
+| `content` | String | The text content of the comment. | `"Awesome work! Keep it up."` |
+
+---
+
+## 3. Like Schema (Polymorphic Association)
+
+A **Like** can be associated with *either* a Post or a Comment, using a **polymorphic association** pattern.
+
+| Field | Type | Description | Example Value |
+| :--- | :--- | :--- | :--- |
+| `user` | **Reference (User)** | The user who registered the like. | (User Object ID) |
+| `targetType` | **String** | **Defines what content was liked** (`"Post"` or `"Comment"`). | `"Post"` or `"Comment"` |
+| `targetId` | **String** | The `_id` of the Post or Comment that was liked. **Must match the `targetType`**. | `P123` or `C456` |
+
+---
+
+## 4. How They Work Together
+
+| Action | Example | Schema(s) Used | Relationship Mechanism |
+| :--- | :--- | :--- | :--- |
+| **User A creates a Post** | Post is saved with `_id = P123` | **Post** | Unique identifier created. |
+| **User B comments on the Post** | Comment is saved with `postId = P123` | **Comment** | Links the Comment directly to the Post. |
+| **User C likes the Post** | Like is saved with `targetType = "Post"` and `targetId = P123` | **Like** | Links the Like to the Post. |
+| **User D likes a Comment** | Comment has `_id = C456`. Like is saved with `targetType = "Comment"` and `targetId = C456` | **Like** | Links the Like to the Comment. |
