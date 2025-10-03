@@ -3,8 +3,8 @@ import Member from "../../model/postHolder.model.js";
 import OTP from "../../model/otp.model.js";
 import sendOtpToUser from "../../nodemailer/SendOTP.js";
 import jwt from "jsonwebtoken";
-import { validateInput } from "../../utils/validator/generalValidator.js";
-import { isValidInstituteEmail } from "../../utils/validator/emailValidator.js";
+import { validateInput } from "../../utils/validator/general.validator.js";
+import { isValidInstituteEmail } from "../../utils/validator/email.validator.js";
 
 /* Helper: create a signed cookie token to carry otpSession (not raw email) */
 const signOtpSession = (payload) =>

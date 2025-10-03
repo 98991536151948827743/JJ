@@ -3,8 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser'; 
 
-import authRouter from './route/authroute.js';
-import profileRouter from './route/profileroute.js';
+import authRouter from './route/auth.route.js';
+import profileRouter from './route/profile.route.js';
 import { connectToMongo } from './database/mongoConnection.js';
 
 dotenv.config();
