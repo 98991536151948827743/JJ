@@ -110,3 +110,28 @@ flowchart TD
 - **401 Unauthorized**: Token invalid or expired  
 - **500 Internal Server Error**: Server issues, OTP send failure, DB errors  
 
+
+##How this post comment and like schema is working right now 
+- **Imagine user A (a Student) creates a post.**:
+
+Post is saved → generates _id = P123.
+
+- **Now, user B comments on this post:**
+
+Comment saved with postId = P123.
+
+This links the comment directly to the post.
+
+-**User C likes this post:**
+
+Like saved with targetType = "Post", targetId = P123.
+
+That means this Like is attached to the post itself.
+
+-**Later, user D likes a comment:**
+
+Comment had _id = C456.
+
+Like saved with targetType = "Comment", targetId = C456.
+
+That means this Like is attached to a comment, not the post.
