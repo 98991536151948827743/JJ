@@ -52,7 +52,7 @@ const memberSchema = new mongoose.Schema(
         uploadedAt: { type: Date, default: Date.now },
       },
     ],
-    isVerified: {
+    isMemberVerified: {
       type: Boolean,
       default: false,
     },

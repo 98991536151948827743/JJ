@@ -2,45 +2,25 @@ import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema(
   {
-    post: {
+    postId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Post",
+      ref: "Post",   // connect comment to a post
       required: true,
     },
-    userType: {
+    authorType: {
       type: String,
       enum: ["Student", "Member"],
       required: true,
     },
-    userId: {
+    authorId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      refPath: "userType", // dynamically references either Student or Member
+      refPath: "authorType", // Member aur student dono comment kr sktey hainaa 
     },
-    text: {
+    content: {
       type: String,
-      required: true,
       trim: true,
-      maxlength: 1000, // optional limit for comment length
-    },
-    attachments: [
-      {
-        url: { type: String, required: true },
-        type: {
-          type: String,
-          enum: ["image", "video", "pdf", "doc", "other"],
-          default: "other",
-        },
-      },
-    ],
-    replyTo: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment", // for threaded comments/replies
-      default: null,
-    },
-    likesCount: {
-      type: Number,
-      default: 0,
+      required: true,
     },
   },
   { timestamps: true }

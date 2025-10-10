@@ -25,6 +25,7 @@ const postSchema = new mongoose.Schema(
     externalLink: {
       type: String, // e.g. YouTube link, website, etc.
       trim: true,
+      default: "",
     },
     postType: {
       type: String,
